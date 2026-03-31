@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface CartridgeData {
   id: string;
@@ -15,7 +15,11 @@ interface GameShellProps {
   children: React.ReactNode;
 }
 
-export default function GameShell({ cartridge, onExit, children }: GameShellProps) {
+export default function GameShell({
+  cartridge,
+  onExit,
+  children,
+}: GameShellProps) {
   const [tick, setTick] = useState(0);
   const [time, setTime] = useState(0);
 
@@ -32,7 +36,9 @@ export default function GameShell({ cartridge, onExit, children }: GameShellProp
   }, []);
 
   const formatTime = (s: number) => {
-    const m = Math.floor(s / 60).toString().padStart(2, "0");
+    const m = Math.floor(s / 60)
+      .toString()
+      .padStart(2, "0");
     const sec = (s % 60).toString().padStart(2, "0");
     return `${m}:${sec}`;
   };
@@ -65,10 +71,12 @@ export default function GameShell({ cartridge, onExit, children }: GameShellProp
             color: cartridge.accent,
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = cartridge.dark + "44";
+            (e.currentTarget as HTMLButtonElement).style.background =
+              cartridge.dark + "44";
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+            (e.currentTarget as HTMLButtonElement).style.background =
+              "transparent";
           }}
         >
           <span className="text-xs font-bold tracking-widest">◀ EXIT</span>
@@ -78,7 +86,10 @@ export default function GameShell({ cartridge, onExit, children }: GameShellProp
         <div className="flex items-center gap-3">
           <div
             className="w-2 h-2 rounded-full animate-pulse"
-            style={{ background: cartridge.accent, boxShadow: `0 0 6px ${cartridge.accent}` }}
+            style={{
+              background: cartridge.accent,
+              boxShadow: `0 0 6px ${cartridge.accent}`,
+            }}
           />
           <span
             className="text-sm font-black tracking-[0.3em]"
@@ -86,7 +97,10 @@ export default function GameShell({ cartridge, onExit, children }: GameShellProp
           >
             {cartridge.title}
           </span>
-          <span className="text-xs tracking-widest" style={{ color: cartridge.dark }}>
+          <span
+            className="text-xs tracking-widest"
+            style={{ color: cartridge.dark }}
+          >
             {tick % 2 === 0 ? "▌" : " "}
           </span>
         </div>
@@ -94,10 +108,16 @@ export default function GameShell({ cartridge, onExit, children }: GameShellProp
         {/* Right info */}
         <div className="flex items-center gap-4">
           <div className="text-right">
-            <div className="text-[8px] tracking-widest" style={{ color: cartridge.dark }}>
+            <div
+              className="text-[8px] tracking-widest"
+              style={{ color: cartridge.dark }}
+            >
               PLAY TIME
             </div>
-            <div className="text-xs font-bold" style={{ color: cartridge.accent }}>
+            <div
+              className="text-xs font-bold"
+              style={{ color: cartridge.accent }}
+            >
               {formatTime(time)}
             </div>
           </div>
@@ -132,21 +152,36 @@ export default function GameShell({ cartridge, onExit, children }: GameShellProp
           borderTop: `1px solid ${cartridge.dark}44`,
         }}
       >
-        <span className="text-[8px] tracking-widest" style={{ color: cartridge.dark }}>
+        <span
+          className="text-[8px] tracking-widest"
+          style={{ color: cartridge.dark }}
+        >
           {cartridge.subtitle}
         </span>
         <div className="flex gap-4">
-          <span className="text-[8px] tracking-widest" style={{ color: cartridge.dark }}>
+          <span
+            className="text-[8px] tracking-widest"
+            style={{ color: cartridge.dark }}
+          >
             [A] ACTION
           </span>
-          <span className="text-[8px] tracking-widest" style={{ color: cartridge.dark }}>
+          <span
+            className="text-[8px] tracking-widest"
+            style={{ color: cartridge.dark }}
+          >
             [B] BACK
           </span>
-          <span className="text-[8px] tracking-widest" style={{ color: cartridge.dark }}>
+          <span
+            className="text-[8px] tracking-widest"
+            style={{ color: cartridge.dark }}
+          >
             [START] PAUSE
           </span>
         </div>
-        <span className="text-[8px] font-mono" style={{ color: cartridge.dark + "88" }}>
+        <span
+          className="text-[8px] font-mono"
+          style={{ color: cartridge.dark + "88" }}
+        >
           RETRO PLAY v1.0
         </span>
       </div>

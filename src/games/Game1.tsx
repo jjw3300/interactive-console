@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function Game1() {
-  const [beats, setBeats] = useState<boolean[]>(Array(16).fill(false));
   const [playing, setPlaying] = useState(false);
   const [step, setStep] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);

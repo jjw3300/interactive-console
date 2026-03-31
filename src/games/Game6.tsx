@@ -1,18 +1,31 @@
-import React from "react";
-
 export default function Game6() {
   return (
     <div
       className="w-full h-full flex flex-col items-center justify-center gap-6"
-      style={{ background: "radial-gradient(ellipse at center, #100800 0%, #080400 100%)" }}
+      style={{
+        background:
+          "radial-gradient(ellipse at center, #100800 0%, #080400 100%)",
+      }}
     >
-      <p className="text-[10px] tracking-[0.4em]" style={{ color: "#d9770688" }}>● ARCADE CLASSIC</p>
-      <h1 className="text-5xl font-black tracking-widest" style={{ color: "#fbbf24", textShadow: "0 0 30px #d9770666" }}>
+      <p
+        className="text-[10px] tracking-[0.4em]"
+        style={{ color: "#d9770688" }}
+      >
+        ● ARCADE CLASSIC
+      </p>
+      <h1
+        className="text-5xl font-black tracking-widest"
+        style={{ color: "#fbbf24", textShadow: "0 0 30px #d9770666" }}
+      >
         SNAKE
       </h1>
       <div
         className="mt-4 px-8 py-4 rounded border text-xs tracking-widest"
-        style={{ borderColor: "#d9770644", color: "#d9770688", background: "#d9770611" }}
+        style={{
+          borderColor: "#d9770644",
+          color: "#d9770688",
+          background: "#d9770611",
+        }}
       >
         COMING SOON
       </div>
@@ -29,7 +42,10 @@ export default function Game6() {
             }}
           />
         ))}
-        <div className="w-4 h-4 self-center rounded-sm" style={{ background: "#ef4444", marginLeft: -4 }} />
+        <div
+          className="w-4 h-4 self-center rounded-sm"
+          style={{ background: "#ef4444", marginLeft: -4 }}
+        />
       </div>
     </div>
   );

@@ -1,18 +1,31 @@
-import React from "react";
-
 export default function Game4() {
   return (
     <div
       className="w-full h-full flex flex-col items-center justify-center gap-6"
-      style={{ background: "radial-gradient(ellipse at center, #020818 0%, #01040e 100%)" }}
+      style={{
+        background:
+          "radial-gradient(ellipse at center, #020818 0%, #01040e 100%)",
+      }}
     >
-      <p className="text-[10px] tracking-[0.4em]" style={{ color: "#2563eb88" }}>● AUDIO VISUALIZER</p>
-      <h1 className="text-5xl font-black tracking-widest" style={{ color: "#60a5fa", textShadow: "0 0 30px #2563eb66" }}>
+      <p
+        className="text-[10px] tracking-[0.4em]"
+        style={{ color: "#2563eb88" }}
+      >
+        ● AUDIO VISUALIZER
+      </p>
+      <h1
+        className="text-5xl font-black tracking-widest"
+        style={{ color: "#60a5fa", textShadow: "0 0 30px #2563eb66" }}
+      >
         SYNTH
       </h1>
       <div
         className="mt-4 px-8 py-4 rounded border text-xs tracking-widest"
-        style={{ borderColor: "#2563eb44", color: "#2563eb88", background: "#2563eb11" }}
+        style={{
+          borderColor: "#2563eb44",
+          color: "#2563eb88",
+          background: "#2563eb11",
+        }}
       >
         COMING SOON
       </div>
