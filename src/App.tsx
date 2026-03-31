@@ -18,14 +18,14 @@ export default function App() {
   useEffect(() => {
     if (phase !== "loading") return;
     const steps = [
-      { target: 0,   delay: 0 },
-      { target: 30,  delay: 200 },
-      { target: 65,  delay: 600 },
-      { target: 90,  delay: 1000 },
+      { target: 0, delay: 0 },
+      { target: 30, delay: 200 },
+      { target: 65, delay: 600 },
+      { target: 90, delay: 1000 },
       { target: 100, delay: 1600 },
     ];
     const timers = steps.map(({ target, delay }) =>
-      setTimeout(() => setLoadProgress(target), delay)
+      setTimeout(() => setLoadProgress(target), delay),
     );
     timers.push(setTimeout(() => setPhase("transition-in"), 2000));
     return () => timers.forEach(clearTimeout);
@@ -34,17 +34,29 @@ export default function App() {
   // transition-in → playing
   useEffect(() => {
     if (phase !== "transition-in") return;
-    const t1 = setTimeout(() => { setPhase("playing"); setRevealing(true); }, 700);
+    const t1 = setTimeout(() => {
+      setPhase("playing");
+      setRevealing(true);
+    }, 700);
     const t2 = setTimeout(() => setRevealing(false), 1300);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, [phase]);
 
   // transition-out → browse
   useEffect(() => {
     if (phase !== "transition-out") return;
-    const t1 = setTimeout(() => { setPhase("browse"); setRevealing(true); }, 600);
+    const t1 = setTimeout(() => {
+      setPhase("browse");
+      setRevealing(true);
+    }, 600);
     const t2 = setTimeout(() => setRevealing(false), 1200);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, [phase]);
 
   const handleCartridgeClick = (index: number) => {
@@ -59,35 +71,20 @@ export default function App() {
   };
 
   const handleNext = () => {
-    if (phase === "browse")
-      setActiveIndex((p) => (p + 1) % totalItems);
+    if (phase === "browse") setActiveIndex((p) => (p + 1) % totalItems);
   };
 
   const handleExit = () => setPhase("transition-out");
 
-  // ── GAME PAGE ──────────────────────────────────
-  if (phase === "playing" || phase === "transition-out") {
-    const GameComponent = GAME_COMPONENTS[activeCartridge.id];
-    return (
-      <>
-        <div
-          style={{
-            opacity: phase === "transition-out" ? 0 : 1,
-            transition: "opacity 0.4s ease-in-out",
-          }}
-        >
-          <GameShell cartridge={activeCartridge} onExit={handleExit}>
-            <GameComponent />
-          </GameShell>
-        </div>
-        <CRTTransition phase={phase} accent={activeCartridge.accent} showReveal={revealing} />
-      </>
-    );
-  }
+  const isPlayingGame = phase === "playing" || phase === "transition-out";
+  const GameComponent = isPlayingGame
+    ? GAME_COMPONENTS[activeCartridge.id]
+    : null;
 
-  // ── CONSOLE PAGE ───────────────────────────────
+  // ── RENDER ────────────────────────────────────────
   return (
     <>
+      {/* CONSOLE PAGE (always rendered as background) */}
       <ConsolePage
         activeIndex={activeIndex}
         phase={phase}
@@ -96,7 +93,30 @@ export default function App() {
         onPrev={handlePrev}
         onNext={handleNext}
       />
-      <CRTTransition phase={phase} accent={activeCartridge.accent} showReveal={revealing} />
+
+      {/* GAME PAGE (overlaid on top) */}
+      {isPlayingGame && GameComponent && (
+        <div
+          className="fixed inset-0"
+          style={{
+            background: "#0a0a12",
+            opacity: phase === "transition-out" ? 0 : 1,
+            transition: "opacity 0.6s ease-out",
+            zIndex: 50,
+            pointerEvents: phase === "transition-out" ? "none" : "auto",
+          }}
+        >
+          <GameShell cartridge={activeCartridge} onExit={handleExit}>
+            <GameComponent />
+          </GameShell>
+        </div>
+      )}
+
+      <CRTTransition
+        phase={phase}
+        accent={activeCartridge.accent}
+        showReveal={revealing}
+      />
     </>
   );
 }

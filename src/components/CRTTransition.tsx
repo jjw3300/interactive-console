@@ -34,6 +34,9 @@ const CRT_KEYFRAMES = `
 `;
 
 export default function CRTTransition({ phase, accent, showReveal }: Props) {
+  // Skip showing dark overlay during transition-out
+  if (phase === "transition-out" && !showReveal) return null;
+
   if (phase !== "transition-in" && phase !== "transition-out" && !showReveal)
     return null;
 
@@ -55,15 +58,12 @@ export default function CRTTransition({ phase, accent, showReveal }: Props) {
   return (
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-        {/* Dark overlay */}
+        {/* Dark overlay - only for transition-in */}
         <div
           className="absolute inset-0"
           style={{
             background: "#000",
-            animation:
-              phase === "transition-in"
-                ? "crtFadeIn 0.6s ease-in-out forwards"
-                : "crtFadeOut 0.5s ease-in-out forwards",
+            animation: "crtFadeIn 0.6s ease-in-out forwards",
           }}
         />
         {/* Scan line */}
@@ -73,10 +73,7 @@ export default function CRTTransition({ phase, accent, showReveal }: Props) {
             height: "3px",
             background: accent,
             boxShadow: `0 0 20px ${accent}, 0 0 40px ${accent}88`,
-            animation:
-              phase === "transition-in"
-                ? "crtScanIn 0.6s ease-in-out forwards"
-                : "crtScanOut 0.5s ease-in-out forwards",
+            animation: "crtScanIn 0.6s ease-in-out forwards",
           }}
         />
       </div>

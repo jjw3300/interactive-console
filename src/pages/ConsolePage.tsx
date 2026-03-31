@@ -423,6 +423,7 @@ export default function ConsolePage({
                   onMouseDown={() => setPressedBtn("A")}
                   onMouseUp={() => setPressedBtn(null)}
                   onMouseLeave={() => setPressedBtn(null)}
+                  onClick={() => onCartridgeClick(activeIndex)}
                   className="w-12 h-12 rounded-full border-2 border-black/60 cursor-pointer"
                   style={{
                     background:
